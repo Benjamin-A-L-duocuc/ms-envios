@@ -13,42 +13,42 @@ import libreria.Envios.repository.EnvioRepository;
 @Service
 public class EnvioService {
 
-    @Autowired
-    private EnvioRepository envioRepository;
+	@Autowired
+	private EnvioRepository envioRepository;
 
-    @Transactional
-    public Envio guardar(Envio envio) {
-        return envioRepository.save(envio);
-    }
+	@Transactional
+	public Envio guardar(Envio envio) {
+		return envioRepository.save(envio);
+	}
 
-    public Optional<Envio> obtenerPorId(Long id) {
-        return envioRepository.findById(id);
-    }
+	public Optional<Envio> obtenerPorId(Long id) {
+		return envioRepository.findById(id);
+	}
 
-    public List<Envio> obtenerTodos() {
-        return envioRepository.findAll();
-    }
+	public List<Envio> obtenerTodos() {
+		return envioRepository.findAll();
+	}
 
-    @Transactional
-    public Envio actualizar(Long id, Envio envio) {
-        Envio existente = envioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Envio no encontrado"));
+	@Transactional
+	public Envio actualizar(Long id, Envio envio) {
+		Envio existente = envioRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Envio no encontrado"));
 
-        existente.setFolio(envio.getFolio());
-        existente.setFechaSolicitud(envio.getFechaSolicitud());
-        existente.setFechaEnvioProgramada(envio.getFechaEnvioProgramada());
-        existente.setFechaComienzoEnvio(envio.getFechaComienzoEnvio());
-        existente.setFechaRecepcion(envio.getFechaRecepcion());
-        existente.setEstado(envio.getEstado());
-        existente.setDireccionDestino(envio.getDireccionDestino());
-        existente.setNotas(envio.getNotas());
-        existente.setTipoEnvio(envio.getTipoEnvio());
+		existente.setFolio(envio.getFolio());
+		existente.setFechaSolicitud(envio.getFechaSolicitud());
+		existente.setFechaEnvioProgramada(envio.getFechaEnvioProgramada());
+		existente.setFechaComienzoEnvio(envio.getFechaComienzoEnvio());
+		existente.setFechaRecepcion(envio.getFechaRecepcion());
+		existente.setEstado(envio.getEstado());
+		existente.setDireccionDestino(envio.getDireccionDestino());
+		existente.setNotas(envio.getNotas());
+		existente.setTipoEnvio(envio.getTipoEnvio());
 
-        return envioRepository.save(existente);
-    }
+		return envioRepository.save(existente);
+	}
 
-    @Transactional
-    public void eliminar(Long id) {
-        envioRepository.deleteById(id);
-    }
+	@Transactional
+	public void eliminar(Long id) {
+		envioRepository.deleteById(id);
+	}
 }
