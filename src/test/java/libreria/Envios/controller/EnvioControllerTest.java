@@ -216,6 +216,24 @@ class EnvioControllerTest {
     }
 
     @Test
+    void obtenerPorTipo_deberiaRetornar200() throws Exception {
+        given(envioService.obtenerPorTipo(TipoEnvio.venta_online)).willReturn(List.of(crearDTO(1L)));
+
+        mockMvc.perform(get("/api/v1/envios/tipo").param("tipoEnvio", "venta_online"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+
+    @Test
+    void obtenerPorTipo_cuandoNoExiste_deberiaRetornar200Vacio() throws Exception {
+        given(envioService.obtenerPorTipo(TipoEnvio.envio_proveedor)).willReturn(List.of());
+
+        mockMvc.perform(get("/api/v1/envios/tipo").param("tipoEnvio", "envio_proveedor"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    @Test
     void eliminar_cuandoNoExiste_deberiaRetornar404() throws Exception {
         willThrow(new RuntimeException("Envio no encontrado")).given(envioService).eliminar(99L);
 
